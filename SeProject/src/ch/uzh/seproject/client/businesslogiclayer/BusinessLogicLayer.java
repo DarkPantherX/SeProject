@@ -11,7 +11,7 @@ import ch.uzh.seproject.client.dataaccesslayer.DataAccessLayer;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
 
 /**
- * This is the main inteface for the Business-Logic-Layer.
+ * This is the main inteface for the Business-Logic-Layer
  */
 public class BusinessLogicLayer {
 	// data-access-layer
