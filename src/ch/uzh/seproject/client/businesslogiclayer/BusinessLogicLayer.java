@@ -44,7 +44,7 @@ public class BusinessLogicLayer {
 		rec2.setLongitude(3);
 		rec2.setLatitude(4);
 		WeatherRecord rec3 = new WeatherRecord();
-		rec3.setCity("san");
+		rec3.setCity("san francisco");
 		rec3.setDate(date3);
 		rec3.setLongitude(3);
 		rec3.setLatitude(4);
