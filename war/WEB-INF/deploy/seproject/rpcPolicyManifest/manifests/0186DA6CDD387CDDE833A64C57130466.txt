@@ -1,0 +1,2 @@
+serviceClass: ch.uzh.seproject.client.dataaccesslayer.DataAccessService
+path: F57CA9B7FE7D8A11BB2C0D72A83D269C.gwt.rpc

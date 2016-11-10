@@ -1,0 +1,2 @@
+# Module ch.uzh.seproject.SeProject.JUnit
+# RPC service class, partial path of RPC policy file
