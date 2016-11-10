@@ -1,21 +1,17 @@
 package ch.uzh.seproject.server.dataaccesslayer;
 
-import com.google.gwt.user.client.rpc.SerializationException;
 // RPC
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 // objectify
 import com.googlecode.objectify.ObjectifyService;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 // datastructures
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.jdt.core.compiler.InvalidInputException;
 
 // general
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessService;

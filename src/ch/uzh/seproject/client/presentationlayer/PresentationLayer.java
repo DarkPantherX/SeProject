@@ -1,9 +1,5 @@
 package ch.uzh.seproject.client.presentationlayer;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Display;
