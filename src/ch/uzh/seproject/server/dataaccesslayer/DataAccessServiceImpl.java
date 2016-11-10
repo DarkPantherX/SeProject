@@ -11,6 +11,7 @@ import java.util.List;
 // general
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessService;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
+import java.util.Date;
 
 /**
  * The server-side implementation of the RPC service.
@@ -28,13 +29,13 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 	}
 	
 	/**
-	 * Returns a serializable list of all WeatherRecords
+	 * Returns a serializable list of all WeatherRecords ordered by date (newest first)
 	 */
 	@Override
 	public List<WeatherRecord> getWeatherData() {
 		
 		//fetched data from database
-		List<WeatherRecord> fetched = ofy().load().type(WeatherRecord.class).list();
+		List<WeatherRecord> fetched = ofy().load().type(WeatherRecord.class).order("date").list();
 		
 		// fetched data needs to be copied to a new list, because the fetched-list is not serializable
 		List<WeatherRecord> result = new ArrayList<WeatherRecord>();
@@ -46,6 +47,51 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 		
 		return result;
 	}
+	
+	
+	/**
+	 * Same as getWeatherData() but with filter options for dateFrom and dateTo
+	 * 
+	 * dateFrom	 |	dateTo	 |	return
+	 *----------------------------------
+	 *    null	 |	 null	 |	eveything
+	 *    set	 |	 null	 |	return-date >= dateFrom
+	 *    null	 |	 set	 |	return-date <= dateTo
+	 *    set	 |	 set	 |  dateFrom <= return-date <= dateFrom
+	 */
+	@Override
+	public List<WeatherRecord> getWeatherData(Date dateFrom, Date dateTo) {
+		List<WeatherRecord> fetched = null;
+		
+		// if no date is set, return whole dataset
+		if((dateFrom == null) && (dateTo == null)) return getWeatherData();
+		else if((dateFrom != null) && (dateTo == null)) {
+			//fetched data from database with only dateFrom
+			fetched = ofy().load().type(WeatherRecord.class).filter("date >=", dateFrom).order("date").list();
+		}else if((dateFrom == null) && (dateTo != null)) 
+		{
+			//fetched data from database with only dateTo
+			fetched = ofy().load().type(WeatherRecord.class).filter("date <=", dateTo).order("date").list();
+		}else if((dateFrom != null) && (dateTo != null)) 
+		{
+			//fetched data from database both dates set
+			fetched = ofy().load().type(WeatherRecord.class).filter("date >=", dateFrom).filter("date <=", dateTo).order("date").list();
+		}
+		
+		// fetched data needs to be copied to a new list, because the fetched-list is not serializable
+		List<WeatherRecord> result = new ArrayList<WeatherRecord>();
+		
+		if(fetched != null)
+		{
+			for (WeatherRecord tmp : fetched) {
+				// copy to new list
+				result.add(tmp);
+			}
+		}
+		
+		return result;
+	}
+	
 
 	/**
 	 * Save a serializable list of WeatherRecords to the database

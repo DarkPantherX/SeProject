@@ -1,5 +1,6 @@
 package ch.uzh.seproject.client.dataaccesslayer;
 
+import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -15,4 +16,5 @@ public interface DataAccessService extends RemoteService {
 	 */
 	public List<WeatherRecord> getWeatherData();
 	public void setWeatherData(List<WeatherRecord> weatherData);
+	public List<WeatherRecord> getWeatherData(Date dateFrom, Date dateTo);
 }

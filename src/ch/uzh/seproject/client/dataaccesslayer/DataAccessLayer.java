@@ -1,5 +1,6 @@
 package ch.uzh.seproject.client.dataaccesslayer;
 
+import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
@@ -42,6 +43,22 @@ public class DataAccessLayer {
 	public void getWeatherData(AsyncCallback<List<WeatherRecord>> callback) {
 		// asynchronous call to server
 		server.getWeatherData(callback);
+	}
+	
+	
+	/**
+	 * Same as getWeatherData() but with filter options for dateFrom and dateTo
+	 * 
+	 * dateFrom	 |	dateTo	 |	return
+	 *----------------------------------
+	 *    null	 |	 null	 |	eveything
+	 *    set	 |	 null	 |	return-date >= dateFrom
+	 *    null	 |	 set	 |	return-date <= dateTo
+	 *    set	 |	 set	 |  dateFrom <= return-date <= dateFrom
+	 */
+	public void getWeatherData(Date dateFrom, Date dateTo, AsyncCallback<List<WeatherRecord>> callback) {
+		// asynchronous call to server
+		server.getWeatherData(dateFrom, dateTo, callback);
 	}
 
 	/**

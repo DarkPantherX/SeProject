@@ -7,6 +7,7 @@ import java.util.Date;
 // objectify
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * The class WeatherRecord is a abstraction for 1 row of the .csv file 
@@ -23,7 +24,7 @@ public class WeatherRecord implements Serializable{
 	 */
 	
 	// e.g. 1849-01-01
-	private Date date;
+	private @Index Date date;
 	// e.g. 26.704
     private Double averageTermperature;
     // e.g. 1.435

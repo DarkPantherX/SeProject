@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.DialogBox;
 
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessLayer;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
