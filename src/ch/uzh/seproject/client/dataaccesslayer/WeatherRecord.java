@@ -20,8 +20,26 @@ public class WeatherRecord implements Serializable{
 	private @Id Long id;
 	
 	/**
-	 * Serializable doesn't allow a constructor !!
+	 * GWT needs a default (empty) constructor !!
 	 */
+	public WeatherRecord(){
+		
+	}
+	
+	/**
+	 * second constructor !!
+	 */
+	public WeatherRecord(Date date, Double averageTermperature, Double averageTemperatureUncertainty, 
+			String city, String country, Double latitude, Double longitude){
+		// set default values
+		this.date = date;
+		this.averageTermperature = averageTermperature;
+		this.averageTemperatureUncertainty = averageTemperatureUncertainty;
+		this.city = city;
+		this.country = country;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
 	
 	// e.g. 1849-01-01
 	private @Index Date date;
@@ -34,68 +52,36 @@ public class WeatherRecord implements Serializable{
     // e.g. Côte D'Ivoire
     private String country;
     // e.g. 5.63N
-    private Double Latitude;
+    private Double latitude;
     // e.g. 3.23W
-    private Double Longitude;
+    private Double longitude;
     
     
-    // get/set date
+	/**
+	 * getters and setters
+	 */
+    
 	public Date getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	
-	// get/set average temperature
 	public Double getAverageTermperature() {
 		return averageTermperature;
 	}
-	public void setAverageTermperature(Double averageTermperature) {
-		this.averageTermperature = averageTermperature;
-	}
-	
-	// get/set average temperature unvertainty
 	public Double getAverageTemperatureUncertainty() {
 		return averageTemperatureUncertainty;
 	}
-	public void setAverageTemperatureUncertainty(Double averageTemperatureUncertainty) {
-		this.averageTemperatureUncertainty = averageTemperatureUncertainty;
-	}
-	
-	// get/set city
 	public String getCity() {
 		return city;
 	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	
-	// get/set country
 	public String getCountry() {
 		return country;
 	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	
-	// get/set latitude
 	public Double getLatitude() {
-		return Latitude;
+		return latitude;
 	}
-	public void setLatitude(double latitude) {
-		Latitude = latitude;
-	}
-	
-	// get/set longitude
 	public Double getLongitude() {
-		return Longitude;
+		return longitude;
 	}
-	public void setLongitude(double longitude) {
-		Longitude = longitude;
-	}  
-	
-	// set id
 	public void setID(long id) {
 		this.id = id;
 	}    

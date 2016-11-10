@@ -68,12 +68,14 @@ public class DataAccessLayer {
 	 * A WeatherRecord needs to have a Date, City, Longitude and Latitude,
 	 * otherwise it won't be added.
 	 */
-	public void setWeatherData(List<WeatherRecord> weatherData) {
+	public void setWeatherData(List<WeatherRecord> weatherData) throws RuntimeException{
 		// asynchronous call to server
+		
 		server.setWeatherData(weatherData, new AsyncCallback<Void>() {
 			@Override
 			public void onFailure(Throwable caught) {
 				// if there is a error
+				throw new RuntimeException(caught.getMessage());
 			}
 
 			@Override

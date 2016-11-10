@@ -1,19 +1,25 @@
 package ch.uzh.seproject.server.dataaccesslayer;
 
+import com.google.gwt.user.client.rpc.SerializationException;
 // RPC
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 // objectify
 import com.googlecode.objectify.ObjectifyService;
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 // datastructures
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.jdt.core.compiler.InvalidInputException;
+
 // general
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessService;
+import ch.uzh.seproject.client.dataaccesslayer.ServerException;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
 import java.util.Date;
 
@@ -102,7 +108,12 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 	 * Date, City, Longitude, Latitude must be set. Those are used to generate a primary key.
 	 */
 	@Override
-	public void setWeatherData(List<WeatherRecord> weatherData) {	
+	public void setWeatherData(List<WeatherRecord> weatherData) throws ServerException {	
+		String exceptionText = "Because some input-data is invalid, not all records could be saved in the database!";
+		
+		if(weatherData == null) throw new ServerException(exceptionText);
+		else
+		{
 			// save to database (App Engine Datastore)
 		
 			for (WeatherRecord tmp : weatherData) {
@@ -123,8 +134,12 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 					
 					// save to database
 					ofy().save().entity(tmp).now();
+				}else
+				{
+					throw new ServerException(exceptionText);
 				}
 			}
+		}
 	}
 
 	@Override
@@ -140,5 +155,6 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 		Parser p = new Parser();
 		List<WeatherRecord> wR =p.readFile(br);
 		setWeatherData(wR);
+		}
 	}
 }

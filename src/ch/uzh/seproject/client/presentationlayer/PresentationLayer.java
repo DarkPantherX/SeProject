@@ -1,6 +1,8 @@
 package ch.uzh.seproject.client.presentationlayer;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.Document;
@@ -39,20 +41,21 @@ public class PresentationLayer implements EntryPoint{
 				DOM.getElementById("worldmapButton").addClassName("active");
 				DOM.getElementById("tableButton").removeClassName("active");
 			}
-		});
-		
+		});    
 	}
 	
 	
 
 	public void addTable(){
 	}
+	
 	/**
 	 * Constructor
 	 */
 	public PresentationLayer() {
-		
+
 	}
+	
 	public void drawUI() {
 		/** create dialogbox
 		final DialogBox out = new DialogBox();

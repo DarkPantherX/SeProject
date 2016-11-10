@@ -29,6 +29,9 @@
   <!-- allow Super Dev Mode -->
   <add-linker name="xsiframe"/>
   
+  <!-- Servlets -->
+  <servlet path="/seproject/dataAccess/" class="ch.uzh.seproject.server.dataaccesslayer.DataAccessServiceImpl"/>
+  
   <!-- used for logging capabilities -->
   <inherits name="com.google.gwt.logging.Logging"/>
 </module>
