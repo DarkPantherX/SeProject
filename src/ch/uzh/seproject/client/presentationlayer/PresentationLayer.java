@@ -3,8 +3,16 @@ package ch.uzh.seproject.client.presentationlayer;
 import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.Display;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 
 import ch.uzh.seproject.client.businesslogiclayer.BusinessLogicLayer;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
@@ -15,27 +23,43 @@ import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
 public class PresentationLayer implements EntryPoint{
 	// business-logic-layer
 	private BusinessLogicLayer bll = new BusinessLogicLayer();
-	
+	private Button tableButton = Button.wrap(Document.get().getElementById("tableButton"));
+	private Button worldmapButton = Button.wrap(Document.get().getElementById("worldmapButton"));
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		drawUI();
+		this.tableButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event){
+				DOM.getElementById("table").getStyle().setDisplay(Display.BLOCK);
+				DOM.getElementById("worldmap").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("tableButton").addClassName("active");
+				DOM.getElementById("worldmapButton").removeClassName("active");
+			}
+		});
+		this.worldmapButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event){
+				DOM.getElementById("table").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("worldmap").getStyle().setDisplay(Display.BLOCK);
+				DOM.getElementById("worldmapButton").addClassName("active");
+				DOM.getElementById("tableButton").removeClassName("active");
+			}
+		});
+		
 	}
+	
+	
 
-
+	public void addTable(){
+	}
 	/**
 	 * Constructor
 	 */
 	public PresentationLayer() {
 		
 	}
-
-	/**
-	 * Draw the whole UI
-	 */
 	public void drawUI() {
-		// create dialogbox
+		/** create dialogbox
 		final DialogBox out = new DialogBox();
 		out.setText("Hello World");
 		out.center();
@@ -56,6 +80,9 @@ public class PresentationLayer implements EntryPoint{
 				}
 			}
 		});
+		*/
+
+
 	}
 
 }

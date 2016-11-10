@@ -5,7 +5,7 @@
 h1 {
   font-size: 2em;
   font-weight: bold;
-  color: #777777;
+  color: white;
   margin: 40px 0px 70px;
   text-align: center;
 }
@@ -22,8 +22,68 @@ h1 {
 .serverResponseLabelError {
   color: red;
 }
-
+.body{
+}
 /** Set ids using widget.getElement().setId("idOfElement") */
 #closeButton {
   margin: 15px 6px 6px;
 }
+#tableData {
+	
+}
+#background {
+    width: 60%;
+    margin-left: 20%;
+}
+#navigation {
+    background-color: #333;
+    
+}
+#worldmap{
+    display: none;
+}
+#table {
+    display: block;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    text-align: center;
+}
+
+li {
+    float: left;
+}
+
+li button {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: transparent;
+    outline: none;
+    border-color: transparent;
+}
+
+li button:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+</style>

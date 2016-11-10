@@ -12,7 +12,6 @@
     <!-- Consider inlining CSS to reduce the number of requested files -->
     <!--                                                               -->
     <link type="text/css" rel="stylesheet" href="SeProject.css">
-
     <!--                                           -->
     <!-- Any title is fine                         -->
     <!--                                           -->
@@ -23,7 +22,12 @@
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
     <!--                                           -->
-    <script type="text/javascript" language="javascript" src="seproject/seproject.nocache.js"></script>
+    <script type="text/javascript" language="javascript" src="seproject/seproject.nocache.js">
+    function toggleTable(){
+    
+    }
+    
+    </script>
   </head>
 
   <!--                                           -->
@@ -32,7 +36,6 @@
   <!-- to create a completely dynamic UI.        -->
   <!--                                           -->
   <body>
-
     <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
     <noscript>
       <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
@@ -40,9 +43,79 @@
         in order for this application to display correctly.
       </div>
     </noscript>
-
-    <h1>SeProject</h1>
-	<div id="gwtContainer"></div>
+    
+	<div id=background>
+		<div id="navigation">
+		<h1>
+		<br />
+		<br />SeProject</h1>
+		<ul>
+		  <li><button id=tableButton class="active" onclick="toggleTable()">Table</button></li>
+		  <li><button id=worldmapButton onclick="toggleWorldmap">World Map</button></li>
+		</ul>
+		</div>
+		<div id="table">
+		<h2>Table</h2>
+		<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum  <br />
+		Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+		<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+		<button>Hey</button>
+		<div id="tableData" style="overflow-x:auto;">
+		  <table>
+		    <tr>
+		      <th>Date</th>
+		      <th>City</th>
+		      <th>Country</th>
+		      <th>Latitude</th>
+		      <th>Longitude</th>
+		      <th>averageTemperature</th>
+		      <th>averageTemperatureUncertainty</th>
+		    </tr>
+		    <tr>
+		      <td>cc</td>
+		      <td>cc</td>
+		      <td>50</td>
+		      <td>50</td>
+		      <td>50</td>
+		      <td>50</td>
+		      <td>50</td>
+		    </tr>
+	
+		  </table>
+		</div>
+		</div>
+		<div id="worldmap">
+		<h2>Worldmap</h2>
+		<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum  <br />
+		Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+		<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+		<button>Hey</button>
+		<div id="tableData" style="overflow-x:auto;">
+		  <table>
+		    <tr>
+		      <th>Date</th>
+		      <th>City</th>
+		      <th>Country</th>
+		      <th>Latitude</th>
+		      <th>Longitude</th>
+		      <th>averageTemperature</th>
+		      <th>averageTemperatureUncertainty</th>
+		    </tr>
+		    <tr>
+		      <td>cc</td>
+		      <td>cc</td>
+		      <td>50</td>
+		      <td>50</td>
+		      <td>50</td>
+		      <td>50</td>
+		      <td>50</td>
+		    </tr>
+	
+		  </table>
+		</div>
+		</div>
+    </div>
+	
 
   </body>
 </html>
