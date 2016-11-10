@@ -5,6 +5,10 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 // objectify
 import com.googlecode.objectify.ObjectifyService;
 import static com.googlecode.objectify.ObjectifyService.ofy;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 // datastructures
 import java.util.ArrayList;
 import java.util.List;
@@ -121,5 +125,20 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 					ofy().save().entity(tmp).now();
 				}
 			}
+	}
+
+	@Override
+	public void readServerFiles() {
+		BufferedReader br = null;
+		try {
+			br= new BufferedReader(new FileReader(getServletContext().getRealPath("res/glob.csv")));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Parser p = new Parser();
+		List<WeatherRecord> wR =p.readFile(br);
+		setWeatherData(wR);
 	}
 }
