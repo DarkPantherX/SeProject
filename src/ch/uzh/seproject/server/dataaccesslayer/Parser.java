@@ -26,12 +26,17 @@ public List<WeatherRecord> datas = new ArrayList<WeatherRecord>();
 			while ((line = br.readLine()) != null) {
 				if(read){
 				String[] data=line.split(",");
-				WeatherRecord d = new WeatherRecord();
-				d.setDate((Date) DateTimeFormat.getFormat("yyyy-MM-dd").parse(data[0]));
-				d.setAverageTermperature(Double.parseDouble(data[1]));
-				d.setAverageTemperatureUncertainty(Double.parseDouble(data[2]));
-				d.setCity(data[3]);
-				d.setCountry(data[4]);
+				
+				Date date = (Date) DateTimeFormat.getFormat("yyyy-MM-dd").parse(data[0]);
+				Double avgTemp = Double.parseDouble(data[1]);
+				Double avgTempUnc = (Double.parseDouble(data[2]));
+				String city = data[3];
+				String country = data[4];
+				Double latitude = 1.0d;
+				Double longitude = 1.0d;
+				
+				WeatherRecord d = new WeatherRecord(date, avgTemp, avgTempUnc, city, country, latitude, longitude);
+	
 				datas.add(d);
 				}else{
 					read=true;

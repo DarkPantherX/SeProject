@@ -154,7 +154,11 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 		
 		Parser p = new Parser();
 		List<WeatherRecord> wR =p.readFile(br);
-		setWeatherData(wR);
+		try {
+			setWeatherData(wR);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
