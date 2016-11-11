@@ -49,18 +49,42 @@
 		<h1>
 		<br />
 		<br />SeProject</h1>
+		<!--   <button id=UploadButton>Upload</button> -->
 		<ul>
-		  <li><button id=tableButton class="active" onclick="toggleTable()">Table</button></li>
-		  <li><button id=worldmapButton onclick="toggleWorldmap">World Map</button></li>
+			
+		<li><button id=worldmapButton class="active">World Map</button></li>
+		<li><button id=tableButton class="">Table</button></li>
+		  
 		</ul>
 		</div>
 		<div id="table">
 		<h2>Table</h2>
-		<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum  <br />
-		Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
-		<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
-		<button>Hey</button>
+		<p>In this table you can find data concerning climate change. You can sort yourself by Country, City and Measurment Data.<br />
+		 </p>
+		<p style="color:red"><i>Functionality not yet guaranteed</i></p>
+		<div id=inputGroup>
+		<p>Search by:</p>
+		<div id=searchSelectorDiv>
+		<form>
+		  <select id="searchSelector">
+		    <option value="country">Country</option>
+		    <option value="city">City</option>
+		    <option value="averageTemperature">Average Temperature</option>
+		  </select>
+		</form>
+		</div>
+		
+		<div id=searchInputDiv>
+		<form>
+		  <input type="text" name="search" placeholder="Search..">
+		</form>
+		</div>
+		
+		</div>
+		
+		
 		<div id="tableData" style="overflow-x:auto;">
+		<br/>
 		  <table>
 		    <tr>
 		      <th>Date</th>
@@ -86,36 +110,25 @@
 		</div>
 		<div id="worldmap">
 		<h2>Worldmap</h2>
-		<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum  <br />
-		Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
-		<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
-		<button>Hey</button>
-		<div id="tableData" style="overflow-x:auto;">
-		  <table>
-		    <tr>
-		      <th>Date</th>
-		      <th>City</th>
-		      <th>Country</th>
-		      <th>Latitude</th>
-		      <th>Longitude</th>
-		      <th>averageTemperature</th>
-		      <th>averageTemperatureUncertainty</th>
-		    </tr>
-		    <tr>
-		      <td>cc</td>
-		      <td>cc</td>
-		      <td>50</td>
-		      <td>50</td>
-		      <td>50</td>
-		      <td>50</td>
-		      <td>50</td>
-		    </tr>
-	
-		  </table>
-		</div>
+		<p>Dynamically shows data as it's spread over the globe. </p>
+		<p style="color:red"><i>Functionality not yet guaranteed</i></p>
+		<br>
+		<div id=mapBox><div id=map></div></div>		
 		</div>
     </div>
-	
+    <script>
+	function myMap() {
+	  var mapCanvas = document.getElementById("map");
+	  var mapOptions = {
+	    center: new google.maps.LatLng(51.5, -0.2), zoom: 10
+	  };
+	  var map = new google.maps.Map(mapCanvas, mapOptions);
+	}
+	</script>
+	<!-- API KEY AIzaSyCX1u6S1Cf3FXayNDKqUUhtZne-FBmyoFI -->
+	<!-- MAP JAVASCRIPT -->
+    <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
 
+	
   </body>
 </html>

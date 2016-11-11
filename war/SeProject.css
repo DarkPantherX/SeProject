@@ -40,10 +40,10 @@ h1 {
     
 }
 #worldmap{
-    display: none;
+    display: block;
 }
 #table {
-    display: block;
+    display: none;
 }
 
 table {
@@ -85,5 +85,43 @@ li button:hover:not(.active) {
 
 .active {
     background-color: #4CAF50;
+}
+input[type=text] {
+    width: 130px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 100%;
+}
+#searchSelectorDiv {
+	display: inline-block;
+	width: 20%;
+}
+#searchInputDiv {
+	display: inline-block;
+	width: 65%;
+}
+select {
+	width: 80%;
+    padding: 16px 20px;
+    border-color: black;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+#mapBox {
+	height: 500px;
+}
+#map {
+	height:100%;
+	width: 100%;
+	overflow: visible !important;
 }
 </style>
