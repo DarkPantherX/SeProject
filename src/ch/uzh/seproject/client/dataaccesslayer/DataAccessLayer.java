@@ -33,23 +33,6 @@ public class DataAccessLayer {
 			}
 		});
 		*/
-		
-		// generate three records
-		Date date1 = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-06-20 16:00:48");
-		Date date2 = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-06-20 17:00:48");
-		Date date3 = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-06-20 18:00:48");
-
-		WeatherRecord rec1 = new WeatherRecord(date1, 26.704, 6.7, "new york", "usa", 40.34, 10.34);
-		WeatherRecord rec2 = new WeatherRecord(date2, 8.43, 8.4, "zurich", "switzerland", 20.64, 5.82);
-		WeatherRecord rec3 = new WeatherRecord(date3, 19.59, 1.9, "munich", "germany", 5.5, 8.8);
-
-		// generate list
-		List<WeatherRecord> list = new ArrayList<WeatherRecord>();
-		
-		list.add(rec1);
-		list.add(rec2);
-		list.add(rec3);
-		setWeatherData(list);
 	}
 
 	/**
@@ -107,7 +90,7 @@ public class DataAccessLayer {
 			@Override
 			public void onFailure(Throwable caught) {
 				// if there is a error
-				throw new RuntimeException(caught.getMessage());
+				//throw new RuntimeException(caught.getMessage());
 			}
 
 			@Override
