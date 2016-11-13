@@ -19,8 +19,16 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import ch.uzh.seproject.client.dataaccesslayer.ServerException;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord; 
 
+
+//Code taken form Stackoverflow http://stackoverflow.com/questions/1111130/basic-file-upload-in-gwt and modified to meet our needs
+
 public class FileUpload extends HttpServlet{
-    public void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
         ServletFileUpload upload = new ServletFileUpload();
 
         try{
@@ -28,8 +36,6 @@ public class FileUpload extends HttpServlet{
 
             while (iter.hasNext()) {
                 FileItemStream item = iter.next();
-
-                String name = item.getFieldName();
                 InputStream stream = item.openStream();
 
             	BufferedReader br = null;
