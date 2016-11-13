@@ -1,17 +1,20 @@
 package ch.uzh.seproject.client.presentationlayer;
 
+import java.util.List;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import ch.uzh.seproject.client.businesslogiclayer.BusinessLogicLayer;
-
+import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
 import ch.uzh.seproject.client.businesslogiclayer.BusinessLogicLayer;
 
 /**
@@ -36,6 +39,18 @@ public class PresentationLayer implements EntryPoint {
 				DOM.getElementById("tableButton").removeClassName("active");
 			}
 		});
+		
+		bll.exampleGetData(new AsyncCallback<List<WeatherRecord>>() {
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+
+			@Override
+			public void onSuccess(List<WeatherRecord> result) {
+			}
+		});
+		
+		
 		this.tableButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event){
 				DOM.getElementById("worldmap").getStyle().setDisplay(Display.NONE);
