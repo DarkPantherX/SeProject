@@ -1,9 +1,11 @@
 package ch.uzh.seproject.client.dataaccesslayer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
@@ -18,6 +20,36 @@ public class DataAccessLayer {
 	 * Constructor
 	 */
 	public DataAccessLayer() {
+		/*
+		server.readServerFiles(new AsyncCallback<Void>() {
+			@Override
+			public void onFailure(Throwable caught) {
+				// if there is a error
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				// nothing to do
+			}
+		});
+		*/
+		
+		// generate three records
+		Date date1 = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-06-20 16:00:48");
+		Date date2 = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-06-20 17:00:48");
+		Date date3 = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-06-20 18:00:48");
+
+		WeatherRecord rec1 = new WeatherRecord(date1, 26.704, 6.7, "new york", "usa", 40.34, 10.34);
+		WeatherRecord rec2 = new WeatherRecord(date2, 8.43, 8.4, "zurich", "switzerland", 20.64, 5.82);
+		WeatherRecord rec3 = new WeatherRecord(date3, 19.59, 1.9, "munich", "germany", 5.5, 8.8);
+
+		// generate list
+		List<WeatherRecord> list = new ArrayList<WeatherRecord>();
+		
+		list.add(rec1);
+		list.add(rec2);
+		list.add(rec3);
+		setWeatherData(list);
 	}
 
 	/**
