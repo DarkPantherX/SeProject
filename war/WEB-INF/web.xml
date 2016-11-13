@@ -6,6 +6,18 @@
          xmlns="http://java.sun.com/xml/ns/javaee">
 
   <!-- Servlets -->
+  
+  <servlet>
+    <servlet-name>fileUploaderServlet</servlet-name>
+    <servlet-class>ch.uzh.seproject.server.dataaccesslayer.FileUpload</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>fileUploaderServlet</servlet-name>
+  <url-pattern>/seproject/fileupload</url-pattern>
+</servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>dataAccessServlet</servlet-name>
     <servlet-class>ch.uzh.seproject.server.dataaccesslayer.DataAccessServiceImpl</servlet-class>

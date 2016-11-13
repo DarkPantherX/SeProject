@@ -17,5 +17,4 @@ public interface DataAccessService extends RemoteService {
 	public List<WeatherRecord> getWeatherData();
 	public void setWeatherData(List<WeatherRecord> weatherData) throws ServerException;
 	public List<WeatherRecord> getWeatherData(Date dateFrom, Date dateTo);
-	public void readServerFiles();
 }

@@ -15,5 +15,4 @@ public interface DataAccessServiceAsync {
 	void getWeatherData(AsyncCallback<List<WeatherRecord>> callback);
 	void getWeatherData(Date dateFrom, Date dateTo, AsyncCallback<List<WeatherRecord>> callback);
 	void setWeatherData(List<WeatherRecord> weatherData, AsyncCallback<Void> asyncCallback);
-	void readServerFiles(AsyncCallback<Void> callback);
 }

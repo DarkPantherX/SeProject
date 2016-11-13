@@ -70,26 +70,6 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 	public List<WeatherRecord> getWeatherData(Date dateFrom, Date dateTo) {
 		List<WeatherRecord> fetched = null;
 		
-		
-		BufferedReader br = null;
-		try {
-			br= new BufferedReader(new FileReader(getServletContext().getRealPath("res/glob.csv")));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Parser p = new Parser();
-		List<WeatherRecord> wR =p.readFile(br);
-		try {
-			setWeatherData(wR);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("here");
-		
 		// if no date is set, return whole dataset
 		if((dateFrom == null) && (dateTo == null)) return getWeatherData();
 		else if((dateFrom != null) && (dateTo == null)) {
@@ -156,26 +136,6 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 					throw new ServerException(exceptionText);
 				}
 			}
-		}
-	}
-
-	@Override
-	public void readServerFiles() {
-		BufferedReader br = null;
-		try {
-			br= new BufferedReader(new FileReader(getServletContext().getRealPath("res/glob.csv")));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Parser p = new Parser();
-		List<WeatherRecord> wR =p.readFile(br);
-		try {
-			setWeatherData(wR);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 }
