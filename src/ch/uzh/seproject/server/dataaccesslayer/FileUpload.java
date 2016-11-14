@@ -45,40 +45,40 @@ public class FileUpload extends HttpServlet{
         		List<WeatherRecord> wR =p.readFile(br);
         	
         		
-        		
-    			for (WeatherRecord tmp : wR) {
-    				if((tmp.getDate() != null) 
-    						&& (tmp.getCity() != null)
-    						&& (tmp.getLongitude() != null)
-    						&& (tmp.getLatitude() != null)){
-    					// add every record that has a DATE and a CITY (LONGITUDE, LATITUDE)
-    					// DATE and LONGITUDE and LATITUDE is used as a primary key (to identify dublicates)
-    					
-    					// generate key with date, longitude and latitude
-    					long key = Long.valueOf(String.valueOf(tmp.getLongitude()).replaceAll(".", "")
-    							+ String.valueOf(tmp.getLatitude()).replaceAll(".", "")
-    							+String.valueOf(tmp.getDate().getTime()));
-    					
-    					// assign key to object
-    					tmp.setID(key);
-    					
-    					// save to database
-    					ofy().save().entity(tmp).now();
-    				}else
-    				{
-    					throw new ServerException("Mistake reading file");
-    				}
-    			}
-        		
+    			setObjectId(wR);
         		
         	}
-
-                
-                
+ 
                 
         }catch(Exception e){
             throw new RuntimeException(e);
         }
     }
+
+	private void setObjectId(List<WeatherRecord> wR) throws ServerException {
+		for (WeatherRecord tmp : wR) {
+			if((tmp.getDate() != null) 
+					&& (tmp.getCity() != null)
+					&& (tmp.getLongitude() != null)
+					&& (tmp.getLatitude() != null)){
+				// add every record that has a DATE and a CITY (LONGITUDE, LATITUDE)
+				// DATE and LONGITUDE and LATITUDE is used as a primary key (to identify dublicates)
+				
+				// generate key with date, longitude and latitude
+				long key = Long.valueOf(String.valueOf(tmp.getLongitude()).replaceAll(".", "")
+						+ String.valueOf(tmp.getLatitude()).replaceAll(".", "")
+						+String.valueOf(tmp.getDate().getTime()));
+				
+				// assign key to object
+				tmp.setID(key);
+				
+				// save to database
+				ofy().save().entity(tmp).now();
+			}else
+			{
+				throw new ServerException("Mistake reading file");
+			}
+		}
+	}
         
 }
