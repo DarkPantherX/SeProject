@@ -49,14 +49,18 @@
 		<h1>
 		<br />
 		<br />SeProject</h1>
-		<!--   <button id=UploadButton>Upload</button> -->
+		
 		<ul>
-			
+		
 		<li><button id=worldmapButton class="active">World Map</button></li>
 		<li><button id=tableButton class="">Table</button></li>
 		  
 		</ul>
 		</div>
+		<form action="/seproject/fileupload" method="post" enctype='multipart/form-data'>
+			<input type="file" name="data"></input>
+			<input type="submit"></input>
+		</form>
 		<div id="table">
 		<h2>Table</h2>
 		<p>In this table you can find data concerning climate change. You can sort yourself by Country, City and Measurment Data.<br />
