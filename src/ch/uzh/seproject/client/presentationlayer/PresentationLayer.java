@@ -65,7 +65,6 @@ public class PresentationLayer implements EntryPoint {
 		});*/
 		
 		
-		//Create Map
 		
 	}
 	
@@ -109,4 +108,5 @@ public class PresentationLayer implements EntryPoint {
 	}
 
 }
+
 
