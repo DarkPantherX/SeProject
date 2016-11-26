@@ -11,7 +11,8 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet; 
 import javax.servlet.http.HttpServletRequest; 
-import javax.servlet.http.HttpServletResponse; 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.fileupload.FileItemIterator; 
 import org.apache.commons.fileupload.FileItemStream; 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -43,7 +44,6 @@ public class FileUpload extends HttpServlet{
         		Parser p = new Parser();
         		List<WeatherRecord> wR =p.readFile(br);
         	
-        		
     			setObjectId(wR);
         		
         	}
@@ -70,7 +70,8 @@ public class FileUpload extends HttpServlet{
 				// assign key to object
 				tmp.setID(key);
 				// save to database
-				ofy().save().entity(tmp).now();
+				ofy().save().entity(tmp);
+				ofy().clear();
 			}else
 			{
 				throw new ServerException("Mistake reading file");
