@@ -9,6 +9,8 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 // datastructures
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // general
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessService;
@@ -39,7 +41,8 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 		
 		//fetched data from database
 		List<WeatherRecord> fetched = ofy().load().type(WeatherRecord.class).order("date").list();
-		
+		Logger logger = Logger.getLogger("");
+		logger.log(Level.SEVERE, Integer.toString(fetched.size()));
 		// fetched data needs to be copied to a new list, because the fetched-list is not serializable
 		List<WeatherRecord> result = new ArrayList<WeatherRecord>();
 		

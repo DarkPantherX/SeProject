@@ -30,7 +30,6 @@ public class FileUpload extends HttpServlet{
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {
         ServletFileUpload upload = new ServletFileUpload();
-
         try{
             FileItemIterator iter = upload.getItemIterator(request);
 
@@ -56,6 +55,7 @@ public class FileUpload extends HttpServlet{
     }
 
 	private void setObjectId(List<WeatherRecord> wR) throws ServerException {
+		long co=ofy().load().type(WeatherRecord.class).list().size();
 		for (WeatherRecord tmp : wR) {
 			if((tmp.getDate() != null) 
 					&& (tmp.getCity() != null)
@@ -65,13 +65,10 @@ public class FileUpload extends HttpServlet{
 				// DATE and LONGITUDE and LATITUDE is used as a primary key (to identify dublicates)
 				
 				// generate key with date, longitude and latitude
-				long key = Long.valueOf(String.valueOf(tmp.getLongitude()).replaceAll(".", "")
-						+ String.valueOf(tmp.getLatitude()).replaceAll(".", "")
-						+String.valueOf(tmp.getDate().getTime()));
-				
+				long key = co+1;
+				co++;
 				// assign key to object
 				tmp.setID(key);
-				
 				// save to database
 				ofy().save().entity(tmp).now();
 			}else
@@ -79,6 +76,7 @@ public class FileUpload extends HttpServlet{
 				throw new ServerException("Mistake reading file");
 			}
 		}
+
 	}
         
 }

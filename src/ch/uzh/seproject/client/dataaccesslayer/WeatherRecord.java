@@ -84,5 +84,13 @@ public class WeatherRecord implements Serializable{
 	}
 	public void setID(long id) {
 		this.id = id;
-	}    
+	}
+	public long getID() {
+		return id;
+	}
+	
+	@Override
+	public String toString(){
+		return "Date: "+ date+ ", avg Temp: "+averageTermperature +", avg Temp uncert.: "+averageTemperatureUncertainty+", city: " + city + ", country: "+country;	
+	}
 }
