@@ -1,0 +1,2 @@
+ Used VM-Arguments in this project (Run - Run Configurations - Arguments - VM arguments):
+ -Xms512m -Xmx1024m -Ddatastore.backing_store=../local_db.bin
