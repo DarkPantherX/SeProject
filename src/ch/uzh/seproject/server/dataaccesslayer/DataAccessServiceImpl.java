@@ -3,9 +3,7 @@ package ch.uzh.seproject.server.dataaccesslayer;
 // RPC
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 // objectify
-import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.cmd.LoadType;
 import com.googlecode.objectify.cmd.Query;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -105,7 +103,7 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 	
 	
 	/**
-	 * 
+	 * query and filter results
 	 */
 	@Override
 	public List<WeatherRecord> getWeatherData(List<Filter> filters, String order, Integer limit) {

@@ -1,17 +1,11 @@
 package ch.uzh.seproject.client.businesslogiclayer;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessLayer;
 import ch.uzh.seproject.client.dataaccesslayer.Filter;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
+
+import java.util.Date;
+import java.util.List;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * This is the main inteface for the Business-Logic-Layer.

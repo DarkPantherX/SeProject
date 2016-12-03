@@ -131,16 +131,12 @@ public class PresentationLayer implements EntryPoint {
 			}
 			
 		
-		});  /*  
+		});
+		
 	      // Push the data into the widget.
 	      table.setRowData(0, WEATHERRECORDS);
-
-
 	      // Add the widgets to the root panel.
 	      RootPanel.get("tableData").add(table);
-	      /*
-		 * Example to get weather data from 2012 to 2013
-		 */	
 	}
 	
 	
@@ -154,34 +150,6 @@ public class PresentationLayer implements EntryPoint {
 	public PresentationLayer() {
 
 	}
-	
-	public void drawUI() {
-		/** create dialogbox
-		final DialogBox out = new DialogBox();
-		out.setText("Hello World");
-		out.center();
-		
-		// send some data in database
-		bll.exampleSaveData();
-		// get data back
-		bll.exampleGetData(new AsyncCallback<List<WeatherRecord>>() {
-			@Override
-			public void onFailure(Throwable caught) {
-			}
-
-			@Override
-			public void onSuccess(List<WeatherRecord> result) {
-				for (WeatherRecord tmp : result) {
-					// show data in dialogbox
-					out.setText("city:  " + tmp.getCity());
-				}
-			}
-		});
-		*/
-
-
-	}
-
 }
 
 
