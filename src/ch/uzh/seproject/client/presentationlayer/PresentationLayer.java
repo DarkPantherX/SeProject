@@ -1,5 +1,6 @@
 package ch.uzh.seproject.client.presentationlayer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -139,8 +140,7 @@ public class PresentationLayer implements EntryPoint {
 	      RootPanel.get("tableData").add(table);
 	      /*
 		 * Example to get weather data from 2012 to 2013
-		 */
-		
+		 */	
 	}
 	
 	

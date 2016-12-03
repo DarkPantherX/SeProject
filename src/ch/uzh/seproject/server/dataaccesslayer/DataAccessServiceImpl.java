@@ -105,6 +105,7 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 	
 	
 	/**
+	 * 
 	 */
 	@Override
 	public List<WeatherRecord> getWeatherData(List<Filter> filters, String order, Integer limit) {
@@ -116,8 +117,12 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 			// loop through query and add filter (because it is immutable)
 			query = query.filter(tmp.getQuery(), tmp.getValue());
 		}
-		// add order
-		query = query.order(order);
+		
+		if(order != null)
+		{
+			// add order
+			query = query.order(order);
+		}
 		
 		if((limit != null) && (limit > 0))
 		{

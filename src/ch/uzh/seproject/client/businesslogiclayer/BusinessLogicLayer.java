@@ -1,5 +1,6 @@
 package ch.uzh.seproject.client.businesslogiclayer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -9,6 +10,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessLayer;
+import ch.uzh.seproject.client.dataaccesslayer.Filter;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
 
 /**
@@ -26,11 +28,18 @@ public class BusinessLogicLayer {
 	}
 	
 	/**
-	 * example getting data
+	 * see dataaccesslayer
 	 */
 	public void getWeatherData(Date dateFrom, Date dateTo, AsyncCallback<List<WeatherRecord>> callback) {
 		// no data-manipulation yet, maybe if there is missing data, the business logic layer should fix that
 		dal.getWeatherData(dateFrom, dateTo, callback);
 	}
-
+	
+	/**
+	 * see dataaccesslayer
+	 */
+	public void getWeatherData(List<Filter> filters, String order, Integer limit, AsyncCallback<List<WeatherRecord>> callback) {
+		// no data-manipulation yet, maybe if there is missing data, the business logic layer should fix that
+		dal.getWeatherData(filters, order, limit, callback);
+	}
 }

@@ -24,19 +24,6 @@ public class DataAccessLayer {
 	 * Constructor
 	 */
 	public DataAccessLayer() {
-		/*
-		server.readServerFiles(new AsyncCallback<Void>() {
-			@Override
-			public void onFailure(Throwable caught) {
-				// if there is a error
-			}
-
-			@Override
-			public void onSuccess(Void result) {
-				// nothing to do
-			}
-		});
-		*/
 	}
 
 	/**
@@ -78,6 +65,51 @@ public class DataAccessLayer {
 	public void getWeatherData(Date dateFrom, Date dateTo, AsyncCallback<List<WeatherRecord>> callback) {
 		// asynchronous call to server
 		server.getWeatherData(dateFrom, dateTo, callback);
+	}
+	
+	
+	/**
+	 * - filters: add filters if needed, e.g. to filter for a specific city or year.
+	 * 				"null" is interpreted as "no filter".
+	 * - order: order by means that the data is returned in a speficif order, 
+	 * 			e.g. newest date first. "null" is interpreted as "order doesn't metter".
+	 * - limit: limit number of returns, e.g. limit 10 means only 10 results are returned. 
+	 * 			Used to increase performance. "null" is interpreted as "no limit".
+	 * 
+	 * 	example:
+	 * 
+	 * 	// dates to filter
+	 * 	Date from = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("1849-01-01 00:00:00");
+	 *	Date to = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("1850-01-01 00:00:00");
+	 *
+	 *	// filters
+	 *	List<Filter> filters = new ArrayList<Filter>();
+	 *	filters.add(new Filter("city ==", "Abidjan"));
+	 *	filters.add(new Filter("date >=", from));
+	 *	filters.add(new Filter("date <=", to));
+	 *
+	 *	// order by date desc ("date" if desc is needed, note the "-")
+	 *	String order = "-date";
+	 *	
+	 *	// limit by 5 returns
+	 *	Integer limit = 5;
+	 *	// call function
+	 *
+	 *	getWeatherData(filters, order, limit, new AsyncCallback<List<WeatherRecord>>() {
+	 *		@Override 
+	 *		public void onFailure(Throwable caught) { }
+	 *		@Override 
+	 *		public void onSuccess(List<WeatherRecord> result) { 
+	 *			for(WeatherRecord tmp : result) {
+	 *				Logger logger = Logger.getLogger("NameOfYourLogger");
+	 *				logger.log(Level.SEVERE,"Date: " + tmp.getDate().toString() + "  City: " + tmp.getCity());
+	 *		}
+	 *	}});
+	 * 
+	 */
+	public void getWeatherData(List<Filter> filters, String order, Integer limit, AsyncCallback<List<WeatherRecord>> callback) {
+		// asynchronous call to server
+		server.getWeatherData(filters, order, limit, callback);
 	}
 
 	/**
