@@ -117,6 +117,16 @@
 		<p>Dynamically shows data as it's spread over the globe. </p>
 		<p style="color:red"><i>Functionality not yet guaranteed</i></p>
 		<br>
+			<!-- Slider aus dem 1800 Jahrhundert aber funktioniert -->
+				<input type="range" min="1800" max="2010" value="1900" step="20" onchange="showValue(this.value)" />
+				<span id="range">0</span>
+				<script type="text/javascript">
+					function showValue(newValue)
+					{
+					document.getElementById("range").innerHTML=newValue;
+					}
+				</script>
+				<br>
 		<div id=mapBox><div id=map></div></div>		
 		</div>
     </div>
