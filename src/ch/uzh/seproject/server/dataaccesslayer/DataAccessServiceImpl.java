@@ -3,7 +3,11 @@ package ch.uzh.seproject.server.dataaccesslayer;
 // RPC
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 // objectify
+import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyService;
+import com.googlecode.objectify.cmd.LoadType;
+import com.googlecode.objectify.cmd.Query;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 // datastructures
@@ -14,6 +18,7 @@ import java.util.logging.Logger;
 
 // general
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessService;
+import ch.uzh.seproject.client.dataaccesslayer.Filter;
 import ch.uzh.seproject.client.dataaccesslayer.ServerException;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
 import java.util.Date;
@@ -84,6 +89,46 @@ public class DataAccessServiceImpl extends RemoteServiceServlet implements DataA
 			fetched = ofy().load().type(WeatherRecord.class).filter("date >=", dateFrom).filter("date <=", dateTo).order("date").list();
 		}
 		
+		// fetched data needs to be copied to a new list, because the fetched-list is not serializable
+		List<WeatherRecord> result = new ArrayList<WeatherRecord>();
+		
+		if(fetched != null)
+		{
+			for (WeatherRecord tmp : fetched) {
+				// copy to new list
+				result.add(tmp);
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	/**
+	 */
+	@Override
+	public List<WeatherRecord> getWeatherData(List<Filter> filters, String order, Integer limit) {
+		List<WeatherRecord> fetched = null;
+		
+		// store query
+		Query<WeatherRecord> query = ofy().load().type(WeatherRecord.class);
+		for (Filter tmp : filters) {
+			// loop through query and add filter (because it is immutable)
+			query = query.filter(tmp.getQuery(), tmp.getValue());
+		}
+		// add order
+		query = query.order(order);
+		
+		if((limit != null) && (limit > 0))
+		{
+			// limit returned results
+			query = query.limit(limit);
+		}
+		
+		
+		fetched = query.list();
+		
+
 		// fetched data needs to be copied to a new list, because the fetched-list is not serializable
 		List<WeatherRecord> result = new ArrayList<WeatherRecord>();
 		

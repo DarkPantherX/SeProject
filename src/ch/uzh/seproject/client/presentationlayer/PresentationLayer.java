@@ -35,6 +35,7 @@ import com.google.gwt.thirdparty.javascript.rhino.head.ast.Label;
 import ch.uzh.seproject.client.businesslogiclayer.BusinessLogicLayer;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessLayer;
+import ch.uzh.seproject.client.dataaccesslayer.Filter;
 
 /**
  * This is the main inteface for the Presentation-Layer.
@@ -42,7 +43,6 @@ import ch.uzh.seproject.client.dataaccesslayer.DataAccessLayer;
 public class PresentationLayer implements EntryPoint {
 	// business-logic-layer
 	private BusinessLogicLayer bll = new BusinessLogicLayer();
-	private DataAccessLayer dal = new DataAccessLayer();
 	private Button tableButton = Button.wrap(Document.get().getElementById("tableButton"));
 	private Button worldmapButton = Button.wrap(Document.get().getElementById("worldmapButton"));
 	private Button submitbutton = Button.wrap(Document.get().getElementById("submitbutton"));
@@ -140,9 +140,6 @@ public class PresentationLayer implements EntryPoint {
 	      /*
 		 * Example to get weather data from 2012 to 2013
 		 */
-		
-		
-		
 		
 	}
 	

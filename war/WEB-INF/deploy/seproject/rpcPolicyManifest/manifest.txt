@@ -1,3 +1,3 @@
 # Module seproject
 # RPC service class, partial path of RPC policy file
-ch.uzh.seproject.client.dataaccesslayer.DataAccessService, F57CA9B7FE7D8A11BB2C0D72A83D269C.gwt.rpc
+ch.uzh.seproject.client.dataaccesslayer.DataAccessService, 1DC7A56452B0FD4BB326FFA7B9E9531D.gwt.rpc

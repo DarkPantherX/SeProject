@@ -44,17 +44,17 @@ public class WeatherRecord implements Serializable{
 	// e.g. 1849-01-01
 	private @Index Date date;
 	// e.g. 26.704
-    private Double averageTermperature;
+    private @Index Double averageTermperature;
     // e.g. 1.435
-    private Double averageTemperatureUncertainty;
+    private @Index Double averageTemperatureUncertainty;
     // e.g. Abidjan
-    private String city;
+    private @Index String city;
     // e.g. Côte D'Ivoire
-    private String country;
+    private @Index String country;
     // e.g. 5.63N
-    private Double latitude;
+    private @Index Double latitude;
     // e.g. 3.23W
-    private Double longitude;
+    private @Index Double longitude;
     
     
 	/**
