@@ -1,4 +1,11 @@
-<!-- Indices written at Sun, 4 Dec 2016 15:13:42 CET -->
+<!-- Indices written at Sun, 4 Dec 2016 16:55:11 CET -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="WeatherRecord" ancestor="false" source="auto">
+        <property name="city" direction="asc"/>
+        <property name="date" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>

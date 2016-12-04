@@ -107,11 +107,14 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 				// Create and attach the chart
 				chart = new Map();
 				RootPanel.get("mapBox").add(chart);
-				draw();
+				drawMap();
 			}
 		});
+		
+		drawTable();
 	}
-	private void draw() {
+	
+	private void drawMap() {
 		// Prepare the data
 		Object[][] data = new Object[][] { { "Country", "Population" }, { "China", "China: 1,363,800,000" },
 				{ "India", "India: 1,242,620,000" }, { "US", "US: 317,842,000" },
@@ -129,20 +132,40 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 		chart.draw(dataTable, options);
 	}
 	
-	public void onModuleLoad() {
-		Date from = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-01-01 00:00:00");
-		Date to = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2013-01-01 00:00:00");
-		
-		bll.getWeatherData(from, to, new AsyncCallback<List<WeatherRecord>>() {
-			@Override 
-			public void onFailure(Throwable caught) { }
-			@Override 
-			public void onSuccess(List<WeatherRecord> result) { 
-				// result is the list you want 
-				// this function is executed when the data is ready 
-				// print every result from 2012 to 2013
+	public void onModuleLoad() {	
+		new PresentationLayer();
+	}
+	
+	public void drawTable()
+	{
+		// dates to filter
+		Date from = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("1849-01-01 00:00:00");
+		Date to = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("1850-01-01 00:00:00");
+
+		// filters
+		List<Filter> filters = new ArrayList<Filter>();
+		filters.add(new Filter("city ==", "Abidjan"));
+		filters.add(new Filter("date >=", from));
+		filters.add(new Filter("date <=", to));
+
+		// order by date desc ("date" if desc is needed, note the "-")
+		String order = "-date";
+
+		// limit by 5 returns
+		Integer limit = 5;
+
+		// call function
+		bll.getWeatherData(filters, order, limit, new AsyncCallback<List<WeatherRecord>>() {
+			@Override
+			public void onFailure(Throwable caught) {
+			}
+
+			@Override
+			public void onSuccess(List<WeatherRecord> result) {
 				for (WeatherRecord tmp : result) {
-					HTML date = new HTML("" + tmp.getDate());
+					DateTimeFormat formatter = DateTimeFormat.getFormat("yyyy-MM-dd");
+
+					HTML date = new HTML("" + formatter.format(tmp.getDate()));
 					HTML city = new HTML("" + tmp.getCity());
 					HTML country = new HTML("" + tmp.getCountry());
 					HTML latitude = new HTML("" + tmp.getLongitude());
@@ -156,44 +179,36 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 					RootPanel.get("longitude").add(longitude);
 					RootPanel.get("avgtemperature").add(avgtemperature);
 					RootPanel.get("avguncertainty").add(avguncertainty);
-					
+				}
 			}
-		}});
-		
-		/*so far failed table 
-		 * 
-		CellTable<WeatherRecord> table = new CellTable<WeatherRecord>();
-	    table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
-	 // Add a text column to show the name.
-	    System.out.println(WEATHERRECORDS);
-	    
-	      TextColumn<WeatherRecord> cityColumn = new TextColumn<WeatherRecord>() {
-	         @Override
-	         public String getValue(WeatherRecord object) {
-	            return object.getCity();
-	         }
-	      };
-	      table.addColumn(cityColumn, "City");
-	      
-	      TextColumn<WeatherRecord> countryColumn = new TextColumn<WeatherRecord>() {
-		         @Override
-		         public String getValue(WeatherRecord object) {
-		            return object.getCountry();
-		         }
-		      };
-		      table.addColumn(countryColumn, "Country");
-		      
-		 // Push the data into the widget.
-	      table.setRowData(0, WEATHERRECORDS);
-	      // Add the widgets to the root panel.
-	      RootPanel.get("tableData").add(table);
-*/
-		
-		
+		});
 
-		new PresentationLayer();
+		CellTable<WeatherRecord> table = new CellTable<WeatherRecord>();
+		table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
+		// Add a text column to show the name.
+		System.out.println(WEATHERRECORDS);
+
+		TextColumn<WeatherRecord> cityColumn = new TextColumn<WeatherRecord>() {
+			@Override
+			public String getValue(WeatherRecord object) {
+				return object.getCity();
+			}
+		};
+		table.addColumn(cityColumn, "City");
+
+		TextColumn<WeatherRecord> countryColumn = new TextColumn<WeatherRecord>() {
+			@Override
+			public String getValue(WeatherRecord object) {
+				return object.getCountry();
+			}
+		};
+		table.addColumn(countryColumn, "Country");
+
+		// Push the data into the widget.
+		// table.setRowData(0, WEATHERRECORDS);
+		// Add the widgets to the root panel.
+		// RootPanel.get("tableData").add(table);
 	}
-	
 	
 }
 
