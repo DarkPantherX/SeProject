@@ -63,8 +63,9 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
     /**
      * Mapstuff
      */
+    Logger logger = Logger.getLogger("com.google.gwt.logging.Logging");
     private Map chart;
-
+    
 	public PresentationLayer() {
 		super(Unit.PX);
 		initialize();
@@ -116,21 +117,49 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	}
 	
 	private void drawMap() {
+		// dates to filter
+		Date from = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2011-01-01 00:00:00");
+		Date to = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-01-01 00:00:00");
+		
+		
+		bll.getWeatherData(from, to, new AsyncCallback<List<WeatherRecord>>() {
+			@Override
+			
+			public void onFailure(Throwable caught) {
+			}
+
+			@Override
+			public void onSuccess(List<WeatherRecord> result) {
+			    Object[][] data = new Object[205][2];
+				data[0][0] = "Country";
+				data[0][1] = "Population";
+				int counter = 1;
+				for (WeatherRecord tmp : result) {
+					if(counter < 205){
+						data[counter][0] = tmp.getCity();
+						data[counter][1] = tmp.getCity() + ", avergage Temperature: " + tmp.getAverageTermperature();
+						logger.log(Level.SEVERE, "" + data[counter][0]);
+						counter = counter + 1;
+					}
+					
+				}
+				DataTable dataTable = ChartHelper.arrayToDataTable(data);
+				MapOptions options = MapOptions.create();
+				options.setShowTip(true);
+				chart.draw(dataTable, options);
+			}
+			
+			
+		});
+		
 		// Prepare the data
-		Object[][] data = new Object[][] { { "Country", "Population" }, { "China", "China: 1,363,800,000" },
-				{ "India", "India: 1,242,620,000" }, { "US", "US: 317,842,000" },
-				{ "Indonesia", "Indonesia: 247,424,598" }, { "Brazil", "Brazil: 201,032,714" },
-				{ "Pakistan", "Pakistan: 186,134,000" }, { "Nigeria", "Nigeria: 173,615,000" },
-				{ "Bangladesh", "Bangladesh: 152,518,015" }, { "Russia", "Russia: 146,019,512" },
-				{ "Japan", "Japan: 127,120,000" } };
-		DataTable dataTable = ChartHelper.arrayToDataTable(data);
+		
 
 		// Set options
-		MapOptions options = MapOptions.create();
-		options.setShowTip(true);
+		
 
 		// Draw the chart
-		chart.draw(dataTable, options);
+		
 	}
 	
 	public void onModuleLoad() {	
@@ -144,7 +173,6 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 
 		// filters
 		List<Filter> filters = new ArrayList<Filter>();
-		filters.add(new Filter("city ==", "Abidjan"));
 		filters.add(new Filter("date >=", from));
 		filters.add(new Filter("date <=", to));
 
@@ -152,7 +180,7 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 		String order = "-date";
 
 		// limit by 5 returns
-		Integer limit = 5;
+		Integer limit = 500;
 
 		// call function
 		bll.getWeatherData(filters, order, limit, new AsyncCallback<List<WeatherRecord>>() {
