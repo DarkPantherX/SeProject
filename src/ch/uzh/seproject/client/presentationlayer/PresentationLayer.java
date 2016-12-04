@@ -71,6 +71,34 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	}
 	
 	private void initialize() {
+		this.worldmapButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event){
+				DOM.getElementById("worldmap").getStyle().setDisplay(Display.BLOCK);
+				DOM.getElementById("table").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("worldmapButton").addClassName("active");
+				DOM.getElementById("tableButton").removeClassName("active");
+			}
+		});
+		
+		this.submitbutton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event){
+				DOM.getElementById("worldmap").getStyle().setDisplay(Display.BLOCK);
+				DOM.getElementById("table").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("worldmapButton").addClassName("active");
+				DOM.getElementById("tableButton").removeClassName("active");
+			}
+		});
+		
+		this.tableButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event){
+				DOM.getElementById("worldmap").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("table").getStyle().setDisplay(Display.BLOCK);
+				DOM.getElementById("tableButton").addClassName("active");
+				DOM.getElementById("worldmapButton").removeClassName("active");
+			}
+			
+		
+		});
 		ChartLoader chartLoader = new ChartLoader(ChartPackage.MAP);
 		chartLoader.loadApi(new Runnable() {
 
@@ -160,34 +188,7 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	      // Add the widgets to the root panel.
 	      RootPanel.get("tableData").add(table);
 */
-		this.worldmapButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event){
-				DOM.getElementById("worldmap").getStyle().setDisplay(Display.BLOCK);
-				DOM.getElementById("table").getStyle().setDisplay(Display.NONE);
-				DOM.getElementById("worldmapButton").addClassName("active");
-				DOM.getElementById("tableButton").removeClassName("active");
-			}
-		});
 		
-		this.submitbutton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event){
-				DOM.getElementById("worldmap").getStyle().setDisplay(Display.BLOCK);
-				DOM.getElementById("table").getStyle().setDisplay(Display.NONE);
-				DOM.getElementById("worldmapButton").addClassName("active");
-				DOM.getElementById("tableButton").removeClassName("active");
-			}
-		});
-		
-		this.tableButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event){
-				DOM.getElementById("worldmap").getStyle().setDisplay(Display.NONE);
-				DOM.getElementById("table").getStyle().setDisplay(Display.BLOCK);
-				DOM.getElementById("tableButton").addClassName("active");
-				DOM.getElementById("worldmapButton").removeClassName("active");
-			}
-			
-		
-		});
 		
 
 		new PresentationLayer();
