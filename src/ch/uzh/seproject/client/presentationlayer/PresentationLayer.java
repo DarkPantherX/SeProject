@@ -111,6 +111,7 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 			}
 		});
 		
+		// draw table
 		drawTable();
 	}
 	
@@ -133,7 +134,6 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	}
 	
 	public void onModuleLoad() {	
-		new PresentationLayer();
 	}
 	
 	public void drawTable()
