@@ -38,10 +38,19 @@ import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
 import ch.uzh.seproject.client.dataaccesslayer.DataAccessLayer;
 import ch.uzh.seproject.client.dataaccesslayer.Filter;
 
+
+import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.googlecode.gwt.charts.client.ChartLoader;
+import com.googlecode.gwt.charts.client.ChartPackage;
+import com.googlecode.gwt.charts.client.DataTable;
+import com.googlecode.gwt.charts.client.map.Map;
+import com.googlecode.gwt.charts.client.map.MapOptions;
+import com.googlecode.gwt.charts.client.util.ChartHelper;
 /**
  * This is the main inteface for the Presentation-Layer.
  */
-public class PresentationLayer implements EntryPoint {
+public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	// business-logic-layer
 	private BusinessLogicLayer bll = new BusinessLogicLayer();
 	private Button tableButton = Button.wrap(Document.get().getElementById("tableButton"));
@@ -51,6 +60,47 @@ public class PresentationLayer implements EntryPoint {
 	/**
 	 * This is the entry point method.
 	 */
+    /**
+     * Mapstuff
+     */
+    private Map chart;
+
+	public PresentationLayer() {
+		super(Unit.PX);
+		initialize();
+	}
+	
+	private void initialize() {
+		ChartLoader chartLoader = new ChartLoader(ChartPackage.MAP);
+		chartLoader.loadApi(new Runnable() {
+
+			@Override
+			public void run() {
+				// Create and attach the chart
+				chart = new Map();
+				RootPanel.get("mapBox").add(chart);
+				draw();
+			}
+		});
+	}
+	private void draw() {
+		// Prepare the data
+		Object[][] data = new Object[][] { { "Country", "Population" }, { "China", "China: 1,363,800,000" },
+				{ "India", "India: 1,242,620,000" }, { "US", "US: 317,842,000" },
+				{ "Indonesia", "Indonesia: 247,424,598" }, { "Brazil", "Brazil: 201,032,714" },
+				{ "Pakistan", "Pakistan: 186,134,000" }, { "Nigeria", "Nigeria: 173,615,000" },
+				{ "Bangladesh", "Bangladesh: 152,518,015" }, { "Russia", "Russia: 146,019,512" },
+				{ "Japan", "Japan: 127,120,000" } };
+		DataTable dataTable = ChartHelper.arrayToDataTable(data);
+
+		// Set options
+		MapOptions options = MapOptions.create();
+		options.setShowTip(true);
+
+		// Draw the chart
+		chart.draw(dataTable, options);
+	}
+	
 	public void onModuleLoad() {
 		Date from = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-01-01 00:00:00");
 		Date to = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2013-01-01 00:00:00");
@@ -82,7 +132,8 @@ public class PresentationLayer implements EntryPoint {
 			}
 		}});
 		
-		
+		/*so far failed table 
+		 * 
 		CellTable<WeatherRecord> table = new CellTable<WeatherRecord>();
 	    table.setKeyboardSelectionPolicy(KeyboardSelectionPolicy.ENABLED);
 	 // Add a text column to show the name.
@@ -103,7 +154,12 @@ public class PresentationLayer implements EntryPoint {
 		         }
 		      };
 		      table.addColumn(countryColumn, "Country");
-
+		      
+		 // Push the data into the widget.
+	      table.setRowData(0, WEATHERRECORDS);
+	      // Add the widgets to the root panel.
+	      RootPanel.get("tableData").add(table);
+*/
 		this.worldmapButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event){
 				DOM.getElementById("worldmap").getStyle().setDisplay(Display.BLOCK);
@@ -133,23 +189,11 @@ public class PresentationLayer implements EntryPoint {
 		
 		});
 		
-	      // Push the data into the widget.
-	      table.setRowData(0, WEATHERRECORDS);
-	      // Add the widgets to the root panel.
-	      RootPanel.get("tableData").add(table);
-	}
-	
-	
 
-	public void addTable(){
+		new PresentationLayer();
 	}
 	
-	/**
-	 * Constructor
-	 */
-	public PresentationLayer() {
-
-	}
+	
 }
 
 

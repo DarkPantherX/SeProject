@@ -31,4 +31,7 @@
   
   <!-- used for logging capabilities -->
   <inherits name="com.google.gwt.logging.Logging"/>
+  
+  <inherits name="com.googlecode.gwt.charts.Charts"/>
 </module>
+
