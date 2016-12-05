@@ -54,6 +54,8 @@
 		
 		<li><button id="worldmapButton" class="active">World Map</button></li>
 		<li><button id="tableButton" class="">Table</button></li>
+		<li><button id="originButton" class="">Data Origin</button></li>
+
 		  
 		</ul>
 		</div>
@@ -61,6 +63,9 @@
 			<input type="file" name="data" />
 			<input type="submit" />
 		</form>
+		<div id="dataOrigin">
+		<p>Source of used Data Set: K. Meier, Data Supplier</p>
+		</div>
 		<div id="table">
 		<h2>Table</h2>
 		<p>In this table you can find data concerning climate change. You can sort yourself by Country, City and Measurment Data.<br />
@@ -71,10 +76,16 @@
 		<form>
 		<p>City:</p>
 		  <input id="cityField" placeholder="ex. Berlin or empty" />
+		 <p> Country:</p>
+		  <input id="countryField" placeholder="ex. Germany or empty" />
+		  <p> Temprature between: -- Problem mit temp filter: only one inequality filter allowed per query... WTF???? GOOLGE WHY U DO DIS?</p>
+		  <input id="startTemp"  placeholder="0.0" />
+		  <p> and </p>
+		  <input id="endTemp"  placeholder="30.1" />
 		<p>Start date:</p>
 		  <input id="startDate" value="01.01.2011" placeholder="1.1.2012" />
 		 <p>End date:</p>
-		  <input id="endDate" value="01.01.2012" placeholder="1.1.2013" />		  
+		  <input id="endDate" value="01.01.2012" placeholder="1.1.2013" />	  
 		</form>
 		<br />
 		<button id="submitbutton">Submit</button>

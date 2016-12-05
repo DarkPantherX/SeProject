@@ -46,6 +46,10 @@ h1 {
     display: none;
 }
 
+#dataOrigin {
+    display: none;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
