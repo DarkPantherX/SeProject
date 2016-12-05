@@ -22,7 +22,7 @@
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
     <!--                                           -->
-    <script type="text/javascript" language="javascript" src="seproject/seproject.nocache.js">
+    <script type="text/javascript" src="seproject/seproject.nocache.js">
     function toggleTable(){
     
     }
@@ -52,30 +52,33 @@
 		
 		<ul>
 		
-		<li><button id=worldmapButton class="active">World Map</button></li>
-		<li><button id=tableButton class="">Table</button></li>
+		<li><button id="worldmapButton" class="active">World Map</button></li>
+		<li><button id="tableButton" class="">Table</button></li>
 		  
 		</ul>
 		</div>
 		<form action="/seproject/fileupload" method="post" enctype='multipart/form-data'>
-			<input type="file" name="data"></input>
-			<input type="submit"></input>
+			<input type="file" name="data" />
+			<input type="submit" />
 		</form>
 		<div id="table">
 		<h2>Table</h2>
 		<p>In this table you can find data concerning climate change. You can sort yourself by Country, City and Measurment Data.<br />
 		 </p>
-		<div id=inputGroup>
+		<div id="inputGroup">
 		<p>Search Data in a certain timeframe:</p>
-		<div id=searchSelectorDiv>
+		<div id="searchSelectorDiv">
 		<form>
+		<p>City:</p>
+		  <input id="cityField" placeholder="ex. Berlin or empty" />
 		<p>Start date:</p>
-		  <input id="startDate" placeholder=1.1.2012 />
+		  <input id="startDate" value="01.01.2011" placeholder="1.1.2012" />
 		 <p>End date:</p>
-		  <input id="endDate" placeholder=1.1.2013 />		  
+		  <input id="endDate" value="01.01.2012" placeholder="1.1.2013" />		  
 		</form>
 		<br />
-		<button id=submitbutton>Submit (Not yet Functional)</button>
+		<button id="submitbutton">Submit</button>
+		<button id="clearButton">Clear List</button>
 		</div>
 		<!-- 
 		<div id=searchInputDiv>
@@ -101,13 +104,13 @@
 		      <th>averageTemperatureUncertainty</th>
 		    </tr>	
 		    <tr>
-		    <td id=date></td>
-		    <td id=city></td>
-		    <td id=country></td>
-		    <td id=latitude></td>
-		    <td id=longitude></td>
-		    <td id=avgtemperature></td>
-		    <td id=avguncertainty></td></tr>
+		    <td id="date"></td>
+		    <td id="city"></td>
+		    <td id="country"></td>
+		    <td id="latitude"></td>
+		    <td id="longitude"></td>
+		    <td id="avgtemperature"></td>
+		    <td id="avguncertainty"></td></tr>
 		   </tbody>
 		  </table>
 		</div>
@@ -126,7 +129,7 @@
 					}
 				</script>
 				<br>
-		<div id=mapBox></div>		
+		<div id="mapBox"></div>		
 		
 		</div>
     </div>

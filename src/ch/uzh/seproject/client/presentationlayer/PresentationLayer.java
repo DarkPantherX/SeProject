@@ -8,34 +8,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.Style.Display;
-import com.google.gwt.dom.client.TableElement;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HTMLPanel;
-import com.google.gwt.user.client.ui.HTMLTable;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
-import com.google.gwt.safehtml.shared.SafeHtmlBuilder;
-import com.google.gwt.thirdparty.javascript.rhino.head.ast.Label;
 
 import ch.uzh.seproject.client.businesslogiclayer.BusinessLogicLayer;
 import ch.uzh.seproject.client.dataaccesslayer.WeatherRecord;
-import ch.uzh.seproject.client.dataaccesslayer.DataAccessLayer;
 import ch.uzh.seproject.client.dataaccesslayer.Filter;
 
 
@@ -56,6 +46,7 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	private Button tableButton = Button.wrap(Document.get().getElementById("tableButton"));
 	private Button worldmapButton = Button.wrap(Document.get().getElementById("worldmapButton"));
 	private Button submitbutton = Button.wrap(Document.get().getElementById("submitbutton"));
+	private Button clearButton = Button.wrap(Document.get().getElementById("clearButton"));
     private static final List<WeatherRecord> WEATHERRECORDS = Arrays.asList();
 	/**
 	 * This is the entry point method.
@@ -83,10 +74,13 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 		
 		this.submitbutton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event){
-				DOM.getElementById("worldmap").getStyle().setDisplay(Display.BLOCK);
-				DOM.getElementById("table").getStyle().setDisplay(Display.NONE);
-				DOM.getElementById("worldmapButton").addClassName("active");
-				DOM.getElementById("tableButton").removeClassName("active");
+				drawTable();
+			}
+		});
+		
+		this.clearButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event){
+				clearTable();
 			}
 		});
 		
@@ -165,14 +159,48 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	public void onModuleLoad() {	
 	}
 	
+	private void clearTable() {
+		RootPanel.get("date").clear();
+		RootPanel.get("city").clear();
+		RootPanel.get("country").clear();
+		RootPanel.get("latitude").clear();
+		RootPanel.get("longitude").clear();
+		RootPanel.get("avgtemperature").clear();
+		RootPanel.get("avguncertainty").clear();
+		
+	}
+	
+	
 	public void drawTable()
 	{
+		clearTable();
 		// dates to filter
-		Date from = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("1849-01-01 00:00:00");
-		Date to = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("1850-01-01 00:00:00");
+		String endDate=((InputElement)(Element)DOM.getElementById("endDate")).getValue();
+		String startDate=((InputElement)(Element)DOM.getElementById("startDate")).getValue();
+		String cityFil=((InputElement)(Element)DOM.getElementById("cityField")).getValue();
 
+		HTML date = new HTML("" + "Loading...");
+		RootPanel.get("date").add(date);
+
+		Date from = null;
+		Date to = null;
+		
+		try{
+			from = DateTimeFormat.getFormat("dd-MM-yyyy HH:mm:ss").parseStrict(startDate.replace(".","-") +" 00:00:00");
+			to = DateTimeFormat.getFormat("dd-MM-yyyy HH:mm:ss").parseStrict(endDate.replace(".","-") +" 00:00:00");
+		}catch(IllegalArgumentException ex){
+			HTML date1 = new HTML("" + "Your date is not in the right format: dd-MM-yyyy");
+			RootPanel.get("date").add(date1);
+		}
+		
 		// filters
 		List<Filter> filters = new ArrayList<Filter>();
+		
+		
+		if(!cityFil.trim().equals("")){
+			filters.add(new Filter("city ==", cityFil));
+		}
+
 		filters.add(new Filter("date >=", from));
 		filters.add(new Filter("date <=", to));
 
@@ -180,16 +208,26 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 		String order = "-date";
 
 		// limit by 5 returns
-		Integer limit = 500;
+		Integer limit = 10000;
 
 		// call function
 		bll.getWeatherData(filters, order, limit, new AsyncCallback<List<WeatherRecord>>() {
 			@Override
 			public void onFailure(Throwable caught) {
+				HTML date = new HTML("" + "Error: connection to server not possible");
+				RootPanel.get("date").add(date);
 			}
 
 			@Override
 			public void onSuccess(List<WeatherRecord> result) {
+				if(result.size()>0){
+					RootPanel.get("date").clear();
+				}else{
+					HTML date = new HTML("" + "No data found with your filters, please check date format and spelling");
+					RootPanel.get("date").add(date);
+
+				}
+				
 				for (WeatherRecord tmp : result) {
 					DateTimeFormat formatter = DateTimeFormat.getFormat("yyyy-MM-dd");
 
