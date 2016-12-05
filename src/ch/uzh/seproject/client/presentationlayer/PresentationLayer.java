@@ -44,6 +44,7 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	// business-logic-layer
 	private BusinessLogicLayer bll = new BusinessLogicLayer();
 	private Button tableButton = Button.wrap(Document.get().getElementById("tableButton"));
+	private Button originButton = Button.wrap(Document.get().getElementById("originButton"));
 	private Button worldmapButton = Button.wrap(Document.get().getElementById("worldmapButton"));
 	private Button submitbutton = Button.wrap(Document.get().getElementById("submitbutton"));
 	private Button clearButton = Button.wrap(Document.get().getElementById("clearButton"));
@@ -67,7 +68,9 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 			public void onClick(ClickEvent event){
 				DOM.getElementById("worldmap").getStyle().setDisplay(Display.BLOCK);
 				DOM.getElementById("table").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("dataOrigin").getStyle().setDisplay(Display.NONE);
 				DOM.getElementById("worldmapButton").addClassName("active");
+				DOM.getElementById("originButton").removeClassName("active");
 				DOM.getElementById("tableButton").removeClassName("active");
 			}
 		});
@@ -87,13 +90,25 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 		this.tableButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event){
 				DOM.getElementById("worldmap").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("dataOrigin").getStyle().setDisplay(Display.NONE);
 				DOM.getElementById("table").getStyle().setDisplay(Display.BLOCK);
 				DOM.getElementById("tableButton").addClassName("active");
+				DOM.getElementById("originButton").removeClassName("active");
 				DOM.getElementById("worldmapButton").removeClassName("active");
 			}
-			
-		
 		});
+		
+		this.originButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event){
+				DOM.getElementById("worldmap").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("table").getStyle().setDisplay(Display.NONE);
+				DOM.getElementById("dataOrigin").getStyle().setDisplay(Display.BLOCK);
+				DOM.getElementById("originButton").addClassName("active");
+				DOM.getElementById("tableButton").removeClassName("active");
+				DOM.getElementById("worldmapButton").removeClassName("active");
+			}
+		});
+		
 		ChartLoader chartLoader = new ChartLoader(ChartPackage.MAP);
 		chartLoader.loadApi(new Runnable() {
 
@@ -178,7 +193,10 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 		String endDate=((InputElement)(Element)DOM.getElementById("endDate")).getValue();
 		String startDate=((InputElement)(Element)DOM.getElementById("startDate")).getValue();
 		String cityFil=((InputElement)(Element)DOM.getElementById("cityField")).getValue();
-
+		String countryFil=((InputElement)(Element)DOM.getElementById("countryField")).getValue();
+		String endTemp=((InputElement)(Element)DOM.getElementById("endTemp")).getValue();
+		String startTemp=((InputElement)(Element)DOM.getElementById("startTemp")).getValue();
+		
 		HTML date = new HTML("" + "Loading...");
 		RootPanel.get("date").add(date);
 
@@ -193,13 +211,39 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 			RootPanel.get("date").add(date1);
 		}
 		
+		
+
 		// filters
 		List<Filter> filters = new ArrayList<Filter>();
 		
+		double tempB=0l;
+		double tempE=0l;
+		
+		if(!startTemp.trim().equals("")&&!endTemp.trim().equals("")){
+			
+			try{
+				tempB = Double.parseDouble(startTemp);
+				tempE = Double.parseDouble(endTemp);
+				filters.add(new Filter("averageTermperature >=", tempB));
+				filters.add(new Filter("averageTermperature <=", tempE));
+			}catch(NumberFormatException ex){
+				HTML date1 = new HTML("" + "Your temprature is not in the right format: ");
+				RootPanel.get("date").add(date1);
+			}
+		
+		}
 		
 		if(!cityFil.trim().equals("")){
 			filters.add(new Filter("city ==", cityFil));
 		}
+		
+		if(!countryFil.trim().equals("")){
+			filters.add(new Filter("country ==", countryFil));
+		}
+		
+		
+
+		
 
 		filters.add(new Filter("date >=", from));
 		filters.add(new Filter("date <=", to));
