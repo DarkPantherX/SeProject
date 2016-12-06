@@ -22,6 +22,7 @@
   <!-- Configure java.util.logging -->
   <system-properties>
     <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+    <property name="appengine.file.encoding" value="UTF-8" />
   </system-properties>
 
   <!--
@@ -38,6 +39,4 @@
     stale session data. For details, see
     https://cloud.google.com/appengine/docs/java/config/appconfig#Java_appengine_web_xml_Enabling_sessions
   -->
- 
-
 </appengine-web-app>
