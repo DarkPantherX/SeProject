@@ -45,8 +45,8 @@ public List<WeatherRecord> datas = new ArrayList<WeatherRecord>();
 						Double avgTempUnc = (Double.parseDouble(data[2]));
 						String city = data[3];
 						String country = data[4];
-						Double latitude = 1.0d;
-						Double longitude = 1.0d;
+						String latitude = data[5];
+						String longitude = data[6];
 				
 						WeatherRecord d = new WeatherRecord(date, avgTemp, avgTempUnc, city, country, latitude, longitude);
 	

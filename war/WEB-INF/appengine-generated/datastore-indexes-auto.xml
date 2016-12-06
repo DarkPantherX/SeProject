@@ -1,25 +1,4 @@
-<!-- Indices written at Mon, 5 Dec 2016 02:33:23 CET -->
+<!-- Indices written at Tue, 6 Dec 2016 12:49:46 CET -->
 
-<datastore-indexes>
+<datastore-indexes/>
 
-    <!-- Used 2 times in query history -->
-    <datastore-index kind="WeatherRecord" ancestor="false" source="auto">
-        <property name="country" direction="asc"/>
-        <property name="date" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="WeatherRecord" ancestor="false" source="auto">
-        <property name="averageTermperature<=" direction="asc"/>
-        <property name="averageTermperature>=" direction="asc"/>
-        <property name="date" direction="desc"/>
-    </datastore-index>
-
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="WeatherRecord" ancestor="false" source="auto">
-        <property name="city" direction="asc"/>
-        <property name="country" direction="asc"/>
-        <property name="date" direction="desc"/>
-    </datastore-index>
-
-</datastore-indexes>
