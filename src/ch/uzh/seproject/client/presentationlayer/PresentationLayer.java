@@ -139,15 +139,15 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 
 			@Override
 			public void onSuccess(List<WeatherRecord> result) {
-			    Object[][] data = new Object[205][2];
+			    Object[][] data = new Object[20][2];
 				data[0][0] = "Country";
 				data[0][1] = "Population";
 				int counter = 1;
 				for (WeatherRecord tmp : result) {
-					if(counter < 205){
+					if(counter < 20){
 						data[counter][0] = tmp.getCity();
 						data[counter][1] = tmp.getCity() + ", avergage Temperature: " + tmp.getAverageTermperature();
-						logger.log(Level.SEVERE, "" + data[counter][0]);
+						//logger.log(Level.SEVERE, "" + data[counter][0]);
 						counter = counter + 1;
 					}
 					
@@ -194,8 +194,6 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 		String startDate=((InputElement)(Element)DOM.getElementById("startDate")).getValue();
 		String cityFil=((InputElement)(Element)DOM.getElementById("cityField")).getValue();
 		String countryFil=((InputElement)(Element)DOM.getElementById("countryField")).getValue();
-		String endTemp=((InputElement)(Element)DOM.getElementById("endTemp")).getValue();
-		String startTemp=((InputElement)(Element)DOM.getElementById("startTemp")).getValue();
 		
 		HTML date = new HTML("" + "Loading...");
 		RootPanel.get("date").add(date);
@@ -216,22 +214,6 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 		// filters
 		List<Filter> filters = new ArrayList<Filter>();
 		
-		double tempB=0l;
-		double tempE=0l;
-		
-		if(!startTemp.trim().equals("")&&!endTemp.trim().equals("")){
-			
-			try{
-				tempB = Double.parseDouble(startTemp);
-				tempE = Double.parseDouble(endTemp);
-				filters.add(new Filter("averageTermperature >=", tempB));
-				filters.add(new Filter("averageTermperature <=", tempE));
-			}catch(NumberFormatException ex){
-				HTML date1 = new HTML("" + "Your temprature is not in the right format: ");
-				RootPanel.get("date").add(date1);
-			}
-		
-		}
 		
 		if(!cityFil.trim().equals("")){
 			filters.add(new Filter("city ==", cityFil));

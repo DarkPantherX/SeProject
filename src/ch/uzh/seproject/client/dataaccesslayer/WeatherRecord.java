@@ -30,7 +30,7 @@ public class WeatherRecord implements Serializable{
 	 * second constructor !!
 	 */
 	public WeatherRecord(Date date, Double averageTermperature, Double averageTemperatureUncertainty, 
-			String city, String country, Double latitude, Double longitude){
+			String city, String country, String latitude, String longitude){
 		// set default values
 		this.date = date;
 		this.averageTermperature = averageTermperature;
@@ -52,9 +52,9 @@ public class WeatherRecord implements Serializable{
     // e.g. Côte D'Ivoire
     private @Index String country;
     // e.g. 5.63N
-    private @Index Double latitude;
+    private @Index String latitude;
     // e.g. 3.23W
-    private @Index Double longitude;
+    private @Index String longitude;
     
     
 	/**
@@ -76,10 +76,10 @@ public class WeatherRecord implements Serializable{
 	public String getCountry() {
 		return country;
 	}
-	public Double getLatitude() {
+	public String getLatitude() {
 		return latitude;
 	}
-	public Double getLongitude() {
+	public String getLongitude() {
 		return longitude;
 	}
 	public void setID(long id) {
