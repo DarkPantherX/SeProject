@@ -33,5 +33,7 @@
   <inherits name="com.google.gwt.logging.Logging"/>
   
   <inherits name="com.googlecode.gwt.charts.Charts"/>
+  
+  <inherits name="com.kiouri.sliderbar.SliderBarMVP" />
 </module>
 

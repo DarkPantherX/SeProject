@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gwt.core.client.EntryPoint;
@@ -37,6 +36,10 @@ import com.googlecode.gwt.charts.client.DataTable;
 import com.googlecode.gwt.charts.client.map.Map;
 import com.googlecode.gwt.charts.client.map.MapOptions;
 import com.googlecode.gwt.charts.client.util.ChartHelper;
+import com.kiouri.sliderbar.client.event.BarValueChangedEvent;
+import com.kiouri.sliderbar.client.event.BarValueChangedHandler;
+import com.kiouri.sliderbar.client.solution.simplehorizontal.SliderBarSimpleHorizontal;
+
 /**
  * This is the main inteface for the Presentation-Layer.
  */
@@ -49,6 +52,8 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 	private Button submitbutton = Button.wrap(Document.get().getElementById("submitbutton"));
 	private Button clearButton = Button.wrap(Document.get().getElementById("clearButton"));
     private static final List<WeatherRecord> WEATHERRECORDS = Arrays.asList();
+	
+	
 	/**
 	 * This is the entry point method.
 	 */
@@ -117,18 +122,31 @@ public class PresentationLayer extends DockLayoutPanel implements EntryPoint {
 				// Create and attach the chart
 				chart = new Map();
 				RootPanel.get("mapBox").add(chart);
-				drawMap();
+				drawMap(2013);
 			}
 		});
 		
 		// draw table
 		drawTable();
+		
+		// draw Slider
+		SliderBarSimpleHorizontal slider = new SliderBarSimpleHorizontal(270, "100%", false); // 2013-1743 = 270
+		slider.setValue(slider.getMaxValue());
+		slider.addBarValueChangedHandler(new BarValueChangedHandler() {
+		      @Override
+		      public void onBarValueChanged(final BarValueChangedEvent event) {
+		    	  //logger.log(Level.SEVERE,  event.getValue());
+		    	  drawMap(1743 + event.getValue());
+		      }
+		});
+		
+		RootPanel.get("slider").add(slider.asWidget());		
 	}
 	
-	private void drawMap() {
+	private void drawMap(int year) {
 		// dates to filter
-		Date from = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2011-01-01 00:00:00");
-		Date to = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse("2012-01-01 00:00:00");
+		Date from = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse(year + "-01-01 00:00:00");
+		Date to = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss").parse(year + "-12-31 00:00:00");
 		
 		
 		bll.getWeatherData(from, to, new AsyncCallback<List<WeatherRecord>>() {
