@@ -59,11 +59,11 @@
 		  
 		</ul>
 		</div>
-		<form action="/seproject/fileupload" method="post" enctype='multipart/form-data'>
-			<input type="file" name="data" />
-			<input type="submit" />
-		</form>
 		<div id="dataOrigin">
+		<form action="/seproject/fileupload" method="post" enctype='multipart/form-data'>
+		<input type="file" name="data" />
+		<input type="submit" />
+		</form>
 		<p>Source of used Data Set: K. Meier, Data Supplier</p>
 		</div>
 		<div id="table">
@@ -126,16 +126,11 @@
 		<h2>Worldmap</h2>
 		<p>Dynamically shows data as it's spread over the globe. </p>
 		<br>
-			<!-- Slider aus dem 1800 Jahrhundert aber funktioniert -->
-				<input type="range" min="1800" max="2010" value="1900" step="20" onchange="showValue(this.value)" />
-				<span id="range">0</span>
-				<script type="text/javascript">
-					function showValue(newValue)
-					{
-					document.getElementById("range").innerHTML=newValue;
-					}
-				</script>
-				<br>
+			<label style="float: left">1743</label>
+			<label style="float: right">2013</label>
+			<div id="slider"></div>
+		<br>
+		<br>
 		<div id="mapBox"></div>		
 		
 		</div>
